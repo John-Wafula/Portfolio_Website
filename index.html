@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio Website</title>
+    <title>John Wafula Wakasiaka </title>
     <!-- {% load static %} -->
     <link rel="stylesheet" href="static/css/style.css">
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -52,7 +52,7 @@
                 <div class="text-1">Hello, my name is</div>
                 <div class="text-2">John Wafula</div>
                 <div class="text-3">And I'm a <span class="typing"></span></div>
-                <a href="#">Hire me</a>
+                <a href="https://drive.google.com/file/d/1oUjtp8Wi3vSP2RvNKBeeVx0ySQ1XenaV/view?usp=sharing">Hire me</a>
             </div>
         </div>
     </section>
@@ -429,21 +429,21 @@
                     <div class="text">Message me</div>
                     <!-- {% csrf_token %} -->
 
-                    <form action='' method="POST">
+                    <form id="contactForm">
 
                         <div class="fields">
                             <div class="field name">
-                                <input type="text" name="name" placeholder="Name" required>
+                                <input type="text" name="name" placeholder="Name" id="contactName" required>
                             </div>
                             <div class="field email">
-                                <input type="email" name="email" placeholder="Email" required>
+                                <input type="email" name="email" placeholder="Email" id="contactEmail" required>
                             </div>
                         </div>
                         <div class="field">
-                            <input type="text" name="subject" placeholder="Subject" required>
+                            <input type="text" name="subject" placeholder="Subject" id="contactSubject" required>
                         </div>
                         <div class="field textarea">
-                            <textarea cols="30" rows="10" name="message" placeholder="Message.." required></textarea>
+                            <textarea cols="30" rows="10" name="message" id="contactMessage" placeholder="Message.." required></textarea>
                         </div>
                         <div class="button-area">
                             <button type="submit">Send message</button>
@@ -460,6 +460,34 @@
                 class="far fa-copyright"></span> 2023 All rights reserved.</span>
     </footer>
     <script src="static/js/script.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+
+        //document.getElementById('contactSubmitBtn').addEventListener("click", submitForm) 
+        document.getElementById('contactForm').addEventListener("submit", submitForm)
+
+        function submitForm(e) {
+                e.preventDefault();
+                const targetVariable = e.target;
+                console.log('e', e.target.contactName.value);
+                sendEmail(targetVariable.contactName.value, targetVariable.contactSubject.value, targetVariable.contactEmail.value, targetVariable.contactMessage.value )
+            }
+
+            function sendEmail (name, subject, email, message) {
+                Email.send({
+                    Host: "smtp.gmail.com",
+                    Username: "johnwakks2@gmail.com",
+                    Password: "namboboto",
+                    To: email,
+                    From: "johnwakks2@gmail.com",
+                    Subject: subject + " ~ " + name,
+                    Body: message
+                }).then(
+                    message => alert(message)
+                );
+            }
+
+    </script>
 </body>
 
 </html>
